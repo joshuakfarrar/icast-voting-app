@@ -5,6 +5,10 @@ angular.module('icastApp')
     $scope.user = {};
     $scope.errors = {};
 
+    if (Auth.isLoggedIn()) {
+      $location.path('/dashboard');
+    }
+
     $scope.login = function(form) {
       $scope.submitted = true;
 
@@ -15,7 +19,7 @@ angular.module('icastApp')
         })
         .then( function() {
           // Logged in, redirect to home
-          $location.path('/');
+          $location.path('/dashboard');
         })
         .catch( function(err) {
           err = err.data;
