@@ -13,12 +13,16 @@
 
         <input type="text" name="badge" class="form-control" ng-model="user.badge"
                ng-pattern="/^\d{5}$/"
-               required/>
+               required
+               mongoose-error/>
         <p class="help-block" ng-show="form.badge.$error.required && submitted">
           A badge number is required
         </p>
         <p class="help-block" ng-show="form.badge.$error.pattern && submitted">
           Badge numbers are five numbers long
+        </p>
+        <p class="help-block" ng-show="form.badge.$error.mongoose">
+          {{ errors.badge }}
         </p>
       </div>
 
