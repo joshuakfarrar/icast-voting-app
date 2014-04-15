@@ -7,16 +7,20 @@
   <div class="col-sm-12">
     <form class="form" name="form" ng-submit="register(form)" novalidate>
 
-      <div class="form-group" ng-class="{ 'has-success': form.name.$valid && submitted,
-                                          'has-error': form.name.$invalid && submitted }">
-        <label>Name</label>
+      <div class="form-group" ng-class="{ 'has-success': form.badge.$valid && submitted,
+                                          'has-error': form.badge.$invalid && submitted }">
+        <label>Badge Number</label>
 
-        <input type="text" name="name" class="form-control" ng-model="user.name"
+        <input type="text" name="badge" class="form-control" ng-model="user.badge"
+               ng-pattern="/^\d{5}$/"
                required/>
-        <p class="help-block" ng-show="form.name.$error.required && submitted">
-          A name is required
+        <p class="help-block" ng-show="form.badge.$error.required && submitted">
+          A badge number is required
         </p>
-      </div>   
+        <p class="help-block" ng-show="form.badge.$error.pattern && submitted">
+          Badge numbers are five numbers long
+        </p>
+      </div>
 
       <div class="form-group" ng-class="{ 'has-success': form.email.$valid && submitted,
                                           'has-error': form.email.$invalid && submitted }">
@@ -39,7 +43,7 @@
       <div class="form-group" ng-class="{ 'has-success': form.password.$valid && submitted,
                                           'has-error': form.password.$invalid && submitted }">
         <label>Password</label>
-        
+
         <input type="password" name="password" class="form-control" ng-model="user.password"
                ng-minlength="3"
                required

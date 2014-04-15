@@ -7,10 +7,10 @@ angular.module('icastApp')
 
     $scope.register = function(form) {
       $scope.submitted = true;
-  
+
       if(form.$valid) {
         Auth.createUser({
-          name: $scope.user.name,
+          badge: $scope.user.badge,
           email: $scope.user.email,
           password: $scope.user.password
         })

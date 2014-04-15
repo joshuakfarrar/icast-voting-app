@@ -7,10 +7,10 @@ angular.module('icastApp')
 
     $scope.login = function(form) {
       $scope.submitted = true;
-      
+
       if(form.$valid) {
         Auth.login({
-          email: $scope.user.email,
+          badge: $scope.user.badge,
           password: $scope.user.password
         })
         .then( function() {
