@@ -1,11 +1,75 @@
 <div ng-include="'partials/navbar'"></div>
 
-<div class="jumbotron">
-  <h1>'Allo, 'Allo <span ng-show="currentUser">{{ currentUser.name }}</span>!</h1>
-  <p class="lead">
-    Always a pleasure dashboarding for you!
-  </p>
-  <p><a class="btn btn-lg btn-success" ng-href="#">Splendid!</a></p>
+<div class="alert alert-info alert-dismissable">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+  <strong>Hey there!</strong> Vote on your favorite products as you wander the convention floor.
+</div>
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Starbox</h3>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-sm-12">
+        <form class="form" name="form" ng-submit="star(form)" novalidate>
+
+          <div class="form-group" ng-class="{ 'has-success': form.product.$valid && submitted,
+                                              'has-error': form.product.$invalid && submitted }">
+            <label>Product Number</label>
+
+            <input type="text" name="product" class="form-control" ng-model="star.product"
+            ng-pattern="/^[A-Ya-y]\d{3}$/"
+            required
+            mongoose-error/>
+            <p class="help-block" ng-show="form.product.$error.required && submitted">
+              A product number is required
+            </p>
+            <p class="help-block" ng-show="form.product.$error.pattern && submitted">
+              Product numbers must follow the A001 format
+            </p>
+            <p class="help-block" ng-show="form.product.$error.mongoose">
+              {{ errors.product }}
+            </p>
+          </div>
+
+          <div class="form-group">
+            <label>Description</label>
+
+            <input type="text" name="description" class="form-control" ng-model="star.description"/>
+          </div>
+
+
+          <button type="submit" class="btn btn-lg btn-primary"> Star </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">
+    <h3 class="panel-title">My Stars</h3>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th class="col-xs-1 text-center">#</th>
+        <th class="col-xs-10">Description</th>
+        <th class="col-xs-1 text-center">Unstar</th>
+      </tr>
+      <tr ng-repeat="star in stars | reverse">
+        <td class="col-xs-1 text-center">{{star.product}}</td>
+        <td class="col-xs-10">{{star.description}}</td>
+        <td class="col-xs-1 text-center">
+          <button type="button" class="btn btn-default btn-xs" ng-data="{{star.product}}" ng-click="unstar(star.product)">
+            <span class="glyphicon glyphicon-star-empty"></span> Unstar
+          </button>
+        </td>
+      </tr>
+    </thead>
+  </table>
 </div>
 
 <div class="footer">
